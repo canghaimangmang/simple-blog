@@ -52,4 +52,30 @@ public class PageBean<T> {
     public void setData(List<T> data) {
         this.data = data;
     }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+    private int start;
+    private  int length;
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getStart() {
+        return start;
+    }
+    public int getPageNum(){
+        return ((int)start/length)+1;
+    }
+
+    public  int getTotalPages(){
+        return ((int)((recordsTotal-1)/length))+1;
+    }
+
 }

@@ -22,9 +22,9 @@ public class BaseCommand  {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
+//    public void setLength(int length) {
+//        this.length = length;
+//    }
 
     public int getStart() {
         return start;

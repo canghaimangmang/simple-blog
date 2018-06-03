@@ -8,7 +8,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.command.ListArticleCommand;
+import com.example.demo.command.ListHomeArticleCommand;
+import com.example.demo.model.Tag;
+import com.example.demo.service.TagService;
 import com.example.demo.util.AESUtil;
+import com.example.demo.vo.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -32,18 +37,26 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private TagService tagService;
+
 	@Value("${rememberMe.key}")
 	private String rememberKey;
 	
 	@RequestMapping("/bloghome")
-	public String blogHome(HttpServletRequest request,Model model) {
+	public String blogHome(ListHomeArticleCommand cmd, Model model) {
 		
-		Integer userId = Integer.valueOf(request.getParameter("userId"));
+		//Integer userId = Integer.valueOf(request.getParameter("userId"));
 		
-		List<Article> articleList = articleService.queryArticle(userId);
-		
-		model.addAttribute("articleList", articleList);
-		
+		//List<Article> articleList = articleService.queryArticle(userId);
+
+		PageBean page = articleService.queryArticleList(cmd);
+
+		page.setStart(cmd.getStart());
+		page.setLength(cmd.getLength());
+		model.addAttribute("page", page);
+		List<Tag> tagList = tagService.searchTags(null);
+		model.addAttribute("tags",tagList);
 		return "home";
 	}
 	

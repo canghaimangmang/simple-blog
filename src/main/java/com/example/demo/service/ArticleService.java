@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.command.AddArticleCommand;
 import com.example.demo.command.ListArticleCommand;
+import com.example.demo.command.ListHomeArticleCommand;
 import com.example.demo.command.UpdateArticleCommand;
 import com.example.demo.model.Article;
 import com.example.demo.model.Tag;
@@ -24,4 +25,8 @@ public interface ArticleService {
     List<Tag> queryTagsById(Long id);
 
     Article updateArticle(UserInfo login, UpdateArticleCommand cmd);
+
+    void deleteById(Long id);
+
+    PageBean queryArticleList(ListHomeArticleCommand cmd);
 }

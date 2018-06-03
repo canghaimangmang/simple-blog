@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import com.example.demo.command.AddArticleCommand;
 import com.example.demo.command.BaseCommand;
 import com.example.demo.command.ListArticleCommand;
+import com.example.demo.command.ListHomeArticleCommand;
 import com.example.demo.model.ArticleTagRelative;
 import com.example.demo.model.Tag;
 import com.example.demo.model.UserInfo;
@@ -137,6 +138,41 @@ public class ArticleDaoImpl implements ArticleDao{
 		//article1.setContent(article.getContent());
 		Article article1 =entityManager.merge(article);
 		return article1;
+	}
+
+	@Override
+	public void deleteArticle(Article article) {
+		entityManager.remove(article);
+	}
+
+	@Override
+	public PageBean queryArticleList(ListHomeArticleCommand cmd) {
+		List<Object> params = new ArrayList<>();
+		StringBuffer queryBuf = new StringBuffer("select distinct a from Article a left join ArticleTagRelative b  on a=b.article where 1=1 ");
+		StringBuffer countBuf = new StringBuffer("select count(distinct a.id) from Article a left join ArticleTagRelative b on a=b.article where 1=1 ");
+		StringBuffer where = new StringBuffer();
+
+		if(cmd.getTagId() != null){
+			where .append(" and b.tag.id = ? ");
+			params.add(cmd.getTagId());
+		}
+		Query countQuery  = entityManager.createQuery(countBuf.append(where).toString());
+		Query query  = entityManager.createQuery(queryBuf.append(where).toString());
+
+
+		Stream.of(countQuery,query).forEach((Query q)->{
+			int i = 0;
+			for (Object param:params) {
+				q.setParameter(i,param);
+				i++;
+			}
+		});
+
+		Long count = (Long)countQuery.getSingleResult();
+
+		List<Article> ret = query.setFirstResult(cmd.getStart()).setMaxResults(cmd.getLength()).getResultList();
+		PageBean<Article> page = new PageBean<>(ret,count);
+		return page;
 	}
 
 	private <T> PageBean  createBaseQuery(Consumer<? super CriteriaMerger> criteriaActoin, CriteriaBuilder cb, Class<T> entityClass, BaseCommand cmd) {

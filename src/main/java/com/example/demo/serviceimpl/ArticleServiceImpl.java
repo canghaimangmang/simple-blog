@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.demo.command.AddArticleCommand;
 import com.example.demo.command.ListArticleCommand;
+import com.example.demo.command.ListHomeArticleCommand;
 import com.example.demo.command.UpdateArticleCommand;
 import com.example.demo.dao.ArticleTagRelativeDao;
 import com.example.demo.dao.TagDao;
@@ -96,6 +97,21 @@ public class ArticleServiceImpl implements ArticleService {
 
 
 		return articleDao.updateArticle(article);
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(Long id) {
+		Article article =articleDao.findById(id);
+		articleTagRelativeDao.deleteByArticle(article);
+
+		articleDao.deleteArticle(article);
+	}
+
+	@Override
+	public PageBean queryArticleList(ListHomeArticleCommand cmd) {
+
+		return articleDao.queryArticleList(cmd);
 	}
 
 }

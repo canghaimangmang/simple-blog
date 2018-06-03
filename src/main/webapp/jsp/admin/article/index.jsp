@@ -135,7 +135,8 @@
             { "data": "author" },
             { "data": "createdDate" },
             { "render": function ( data, type, row ,meta) {
-                    var str="<a class='btn btn-default' data-edit-btn='"+row.id+"'> 编辑</a><a class='btn btn-danger'>删除</a>"
+                    var str="<a class='btn btn-default' data-edit-btn='"+row.id+"'> 编辑</a>" +
+                        "<a class='btn btn-danger' data-delete-btn='"+row.id+"'>删除</a>"
                    return str;
                 }
             }
@@ -149,10 +150,25 @@
     })
 
   $("#datatable-responsive").on("click","a[data-edit-btn]",null,function(){
-      console.log("进来了");
      var articleId =  $(this).attr("data-edit-btn");
       __goto("${ctx}/admin/article/edit?id="+articleId);
       return false;
   })
+    $("#datatable-responsive").on("click","a[data-delete-btn]",null,function(){
+        var articleId =  $(this).attr("data-delete-btn");
+        if(window.confirm("确认删除?")){
+            $.post("${ctx}/admin/article/delete?id="+articleId,null,function(data){
+                if(data.status!=null && data.status !=100){
+                    alert(data.message);
+                }else{
+                    alert("删除成功！");
+                    __goto("${ctx}/admin/article/index");
+                }
+            },"json")
+
+        }
+
+        return false;
+    })
 
 </script>

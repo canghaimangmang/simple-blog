@@ -83,10 +83,17 @@ public class AdminArticleController {
     @ResponseBody
     public Map editSave(UpdateArticleCommand cmd){
 
-
-
         Article article1 = articleService.updateArticle(AdminUtils.getUserInfo(),cmd);
 
         return new HashMap();
     }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Map delete(Long id){
+        articleService.deleteById(id);
+        return new HashMap();
+    }
 }
+
+
