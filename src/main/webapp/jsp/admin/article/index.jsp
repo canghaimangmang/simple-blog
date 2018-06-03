@@ -119,6 +119,7 @@
         },
         "columns": [
             {
+                "width":"2em",
                 "render": function ( data, type, row ,meta) {
                     //return  meta.row.index()+1;
                     console.info("meta:"+meta)
@@ -126,12 +127,19 @@
                 },
             },
             { "data": "title",
+                "width":"6em",
                 "render": function ( data, type, row ,meta) {
                     var str="<a class='' href='#' style='text-decoration: underline'> "+row.title+"</a>"
                     return str;
                 }
             },
-            { "data": "summary" },
+            { "data": "summary",
+
+                "render": function ( data, type, row ,meta) {
+                    var str="<div style='max-width:10em;overflow-x: auto;'> "+row.summary+"</div>"
+                    return str;
+                }
+            },
             { "data": "author" },
             { "data": "createdDate" },
             { "render": function ( data, type, row ,meta) {

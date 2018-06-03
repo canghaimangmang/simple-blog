@@ -62,7 +62,7 @@
 
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="content">内容:</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10" style="height: 45em;overflow:  auto;">
                             <%--<textarea class="form-control" id="content" placeholder="请输入内容"></textarea>--%>
                                 <textarea id="content" name="content" type="text/plain">${article.content}</textarea>
                         </div>
@@ -83,7 +83,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="indate">发表日期:</label>
                         <div class="col-sm-10">
-                            <c:set var = "date" ><fmt:formatDate value="${article.createdDate}" pattern="yyyy-MM-dd hh:mm:ss"></fmt:formatDate> </c:set>
+                            <c:set var = "date" ><fmt:formatDate value="${article.createdDate}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate> </c:set>
                             <input name="createdDate" id="indate" type="text" placeholder="请选择"  readonly value="${date}">
                         </div>
                     </div>

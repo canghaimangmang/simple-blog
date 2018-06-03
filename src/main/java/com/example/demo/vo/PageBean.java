@@ -61,7 +61,7 @@ public class PageBean<T> {
         this.length = length;
     }
     private int start;
-    private  int length;
+    private  int length=10;
 
     public int getLength() {
         return length;
@@ -71,10 +71,12 @@ public class PageBean<T> {
         return start;
     }
     public int getPageNum(){
+        if(length==0) return 0;
         return ((int)start/length)+1;
     }
 
     public  int getTotalPages(){
+        if(length==0) return 0;
         return ((int)((recordsTotal-1)/length))+1;
     }
 

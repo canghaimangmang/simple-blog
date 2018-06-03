@@ -90,5 +90,14 @@ public class HomeController {
 		}
 		return map;
 	}
+
+	@RequestMapping("/article")
+	public String getArticle(Long id,Model model){
+		Article article = articleService.findById(id);
+		List<Tag> tagList = tagService.searchTags(null);
+		model.addAttribute("tags",tagList);
+		model.addAttribute("article",article);
+		return "article";
+	}
 	
 }

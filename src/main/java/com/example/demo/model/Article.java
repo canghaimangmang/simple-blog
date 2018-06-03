@@ -1,14 +1,14 @@
 package com.example.demo.model;
 
 import java.util.Date;
+import java.util.TimeZone;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import sun.util.resources.zh.TimeZoneNames_zh_CN;
 
 @Entity
 public class Article {
@@ -20,7 +20,10 @@ public class Article {
 	private String content;
 	private String author;
 	private Long userId;
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")
 	private Date createdDate;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedDate;
 	
 	

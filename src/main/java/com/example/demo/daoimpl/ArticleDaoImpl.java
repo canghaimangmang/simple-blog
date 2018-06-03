@@ -156,8 +156,9 @@ public class ArticleDaoImpl implements ArticleDao{
 			where .append(" and b.tag.id = ? ");
 			params.add(cmd.getTagId());
 		}
+
 		Query countQuery  = entityManager.createQuery(countBuf.append(where).toString());
-		Query query  = entityManager.createQuery(queryBuf.append(where).toString());
+		Query query  = entityManager.createQuery(queryBuf.append(where).append(" order by a.createdDate desc ").toString());
 
 
 		Stream.of(countQuery,query).forEach((Query q)->{

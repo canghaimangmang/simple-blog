@@ -32,12 +32,14 @@
          <br />
 
           <!-- Blog Post -->
-          <c:forEach items = "${page.data}" var = "article">
+
 	          <div class="card mb-4">
-	            <div class="card-body">
+	            <div class="card-body" style="min-height: 26em;">
 	              <h2 class="card-title">${article.title}</h2>
-	              <p class="card-text">${article.summary}</p>
-	              <a href="${ctx}/article?id=${article.id}" class="btn btn-clear btn-small">更多内容 &rarr;</a>
+	              <p class="card-text" style="font-style:italic">摘要：${article.summary}</p>
+	              <div>
+                      ${article.content}
+                  </div>
 	            </div>
 	            <div class="card-footer text-muted">
 	            <c:set var="dateStr"><fmt:formatDate value="${article.createdDate}" pattern="yyyy-MM-dd HH:mm:ss" /></c:set>
@@ -45,21 +47,10 @@
 	              Posted on ${dateStr} by ${article.author}
 	            </div>
 	          </div>
-           </c:forEach>
 
 
-          <!-- Pagination -->
-          <ul class="pagination justify-content-center mb-4">
 
-            <li class="page-item ">
-              <c:set var="newPageLink">href="${ctx}/bloghome?start=${(page.start-page.length)}&tagId=${param.tagId}&length=${param.length}"</c:set>
-              <a class="page-link" ${page.pageNum==1?'':newPageLink}>&larr; 上一页 </a>
-            </li>
-            <li class="page-item">
-              <c:set var="oldPageLink">href="${ctx}/bloghome?start=${(page.start+page.length)}&tagId=${param.tagId}&length=${param.length}"</c:set>
-              <a class="page-link" ${page.pageNum==page.totalPages?'':oldPageLink}  >下一页&rarr;</a>
-            </li>
-          </ul>
+
 
         </div>
 
