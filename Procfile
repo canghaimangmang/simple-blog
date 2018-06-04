@@ -1,0 +1,1 @@
+web: java -jar -Dspring.profiles.active=heroku target/my-blog-1.0.war

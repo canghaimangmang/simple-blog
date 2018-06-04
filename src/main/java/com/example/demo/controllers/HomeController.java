@@ -42,6 +42,11 @@ public class HomeController {
 
 	@Value("${rememberMe.key}")
 	private String rememberKey;
+
+	@RequestMapping("/")
+	public String index(){
+		return "redirect:/bloghome";
+	}
 	
 	@RequestMapping("/bloghome")
 	public String blogHome(ListHomeArticleCommand cmd, Model model) {
