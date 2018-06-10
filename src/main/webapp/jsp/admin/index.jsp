@@ -73,7 +73,7 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> 个人设置 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">修改密码</a></li>
+                      <li><a href="${ctx}/admin/updatepwd" data-part>修改密码</a></li>
                       <li><a href="form_advanced.html">修改个人信息</a></li>
                       
                     </ul>

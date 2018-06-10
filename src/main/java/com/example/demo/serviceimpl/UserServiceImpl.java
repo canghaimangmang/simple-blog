@@ -7,6 +7,8 @@ import com.example.demo.dao.UserDao;
 import com.example.demo.model.UserInfo;
 import com.example.demo.service.UserService;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -22,6 +24,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserInfo findUserById(Long userId) {
 		return userDao.findUserById(userId);
+	}
+
+	@Override
+	@Transactional
+	public void updatePwd(UserInfo user) {
+		 userDao.updatePwd(user);
 	}
 
 }

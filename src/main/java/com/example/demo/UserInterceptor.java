@@ -43,13 +43,14 @@ public class UserInterceptor implements HandlerInterceptor {
                    try {
 
 
-                       String userId = AESUtil.decrypt(value,rememberKey);
+                       String[] values = AESUtil.decrypt(value,rememberKey).split("@@@");
+                       if(values != null && values.length >0){
+                           UserInfo user = userService.findUserById(new Long(values[0]));
 
-                       UserInfo user = userService.findUserById(new Long(userId));
-
-                       if(user != null){
-                           request.getSession().setAttribute("user",user);
-                           return true;
+                           if(user != null && user.getPassword().equals(values[1])){
+                               request.getSession().setAttribute("user",user);
+                               return true;
+                           }
                        }
                    }catch (Exception e){
                        logger.warn("解析rememberMe Cookie 异常 rememberMe:{},原因:{}",value,e.getMessage());

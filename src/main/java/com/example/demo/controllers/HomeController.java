@@ -86,7 +86,8 @@ public class HomeController {
 		}else {
 			request.getSession().setAttribute("user", user);
 			if("on".equals(cmd.getRememberMe())){
-				String val = AESUtil.encrypt(user.getId().toString(),rememberKey);
+				String val = AESUtil.encrypt(user.getId().toString() +"@@@" +user.getPassword(),rememberKey);
+
 				Cookie cookie = new Cookie("rememberMe",val);
 				cookie.setMaxAge(3600*24*7);
 				cookie.setPath("/");

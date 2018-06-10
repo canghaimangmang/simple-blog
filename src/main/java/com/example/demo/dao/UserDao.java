@@ -7,4 +7,6 @@ public interface UserDao {
 	UserInfo findUser(String username);
 
     UserInfo findUserById(Long userId);
+
+    void updatePwd(UserInfo user);
 }

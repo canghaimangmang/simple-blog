@@ -35,4 +35,9 @@ public class UserDaoImpl implements UserDao {
 		return entityManager.find(UserInfo.class,userId);
 	}
 
+	@Override
+	public void updatePwd(UserInfo user) {
+		entityManager.merge(user);
+	}
+
 }

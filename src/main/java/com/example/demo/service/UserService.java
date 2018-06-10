@@ -8,4 +8,6 @@ public interface UserService {
 
 
     UserInfo findUserById(Long aLong);
+
+    void updatePwd(UserInfo user);
 }
