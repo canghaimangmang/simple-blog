@@ -31,7 +31,7 @@ public class AppConfig {
 			return new HikariDataSource();
 		} else {
 			HikariConfig config = new HikariConfig();
-			config.setJdbcUrl(dbUrl);
+			config.setJdbcUrl(dbUrl+"&useUnicode=true&characterEncoding=UTF-8");
 
 			config.setDriverClassName(driverClassName);
 			return new HikariDataSource(config);
