@@ -25,6 +25,7 @@ pipeline {
              sh 'echo $TEST_ACCOUNT'
              sh 'echo $TEST_ACCOUNT_USR'
              sh 'echo $TEST_ACCOUNT_PSW'
+             sh 'echo "hello world!"'
          }
       }
    }
