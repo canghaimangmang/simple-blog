@@ -14,11 +14,17 @@ pipeline {
         }
     }
    */
-   agent { docker { image 'node:7-alpine'} }
+   agent { docker { image 'node:7-alpine' } }
    stages {
       stage('Test') {
+         environment {
+            TEST_ACCOUNT=credentials('test_account');
+         }
          steps {
              sh 'node --version'
+             sh 'echo $TEST_ACCOUNT'
+             sh 'echo $TEST_ACCOUNT_USR'
+             sh 'echo $TEST_ACCOUNT_PSW'
          }
       }
    }
